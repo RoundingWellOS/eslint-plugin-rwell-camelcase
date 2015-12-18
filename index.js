@@ -2,9 +2,9 @@
 
 module.exports = {
     rules: {
-        "google-camelcase": require("./lib/rules/google-camelcase"),
+        "rwell-camelcase": require("./lib/rules/rwell-camelcase"),
     },
     rulesConfig: {
-        "google-camelcase": 2,
+        "rwell-camelcase": 2,
     }
 };

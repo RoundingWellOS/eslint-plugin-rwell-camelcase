@@ -15,7 +15,7 @@ var eslintTester = new ESLintTester(linter);
 // Tests
 //------------------------------------------------------------------------------
 
-eslintTester.addRuleTest("lib/rules/google-camelcase", {
+eslintTester.addRuleTest("lib/rules/rwell-camelcase", {
     valid: [
         "firstName = \"Nicholas\"",
         "FIRST_NAME = \"Nicholas\"",
@@ -34,8 +34,27 @@ eslintTester.addRuleTest("lib/rules/google-camelcase", {
         "var arr = [foo.bar_baz.qux];",
         "[foo.bar_baz.nesting]",
         "if (foo.bar_baz === boom.bam_pow) { [foo.baz_boom] }",
-        "var a = opt_test;",
-        "var args = var_args;"
+        "var a = test_ch;",
+        {
+            code: "var o = {key: 1}",
+            args: [2, {properties: "always"}]
+        },
+        {
+            code: "var o = {bar_baz: 1}",
+            args: [2, {properties: "never"}]
+        },
+        {
+            code: "obj.a_b = 2;",
+            args: [2, {properties: "never"}]
+        },
+        {
+            code: "var obj = {\n a_a: 1 \n};\n obj.a_b = 2;",
+            args: [2, {properties: "never"}]
+        },
+        {
+            code: "obj.foo_bar = function(){};",
+            args: [2, {properties: "never"}]
+        }
     ],
     invalid: [
         {
@@ -124,6 +143,36 @@ eslintTester.addRuleTest("lib/rules/google-camelcase", {
             errors: [
                 {
                     message: "Identifier 'boom_pow' is not in camel case.",
+                    type: "Identifier"
+                }
+            ]
+        },
+        {
+            code: "var o = {bar_baz: 1}",
+            args: [2, {properties: "always"}],
+            errors: [
+                {
+                    message: "Identifier 'bar_baz' is not in camel case.",
+                    type: "Identifier"
+                }
+            ]
+        },
+        {
+            code: "obj.a_b = 2;",
+            args: [2, {properties: "always"}],
+            errors: [
+                {
+                    message: "Identifier 'a_b' is not in camel case.",
+                    type: "Identifier"
+                }
+            ]
+        },
+        {
+            code: "obj.a_b = 2;",
+            args: [2, {properties: "always"}],
+            errors: [
+                {
+                    message: "Identifier 'a_b' is not in camel case.",
                     type: "Identifier"
                 }
             ]
