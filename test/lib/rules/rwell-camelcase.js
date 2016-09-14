@@ -35,6 +35,8 @@ eslintTester.addRuleTest("lib/rules/rwell-camelcase", {
         "[foo.bar_baz.nesting]",
         "if (foo.bar_baz === boom.bam_pow) { [foo.baz_boom] }",
         "var a = test_ch;",
+        "var a = test_ts;",
+        "var a = test_fx;",
         {
             code: "var o = {key: 1}",
             args: [2, {properties: "always"}]
